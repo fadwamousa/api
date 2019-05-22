@@ -28,4 +28,18 @@ class Product extends Model
 
         return $this->status == Product::AVAILABL_PRODUCT;
       }
+
+
+      public function categories(){
+        return $this->belongsToMany(Category::class);
+      }
+
+
+      public function seller(){
+        return $this->belongsTo(Seller::class);
+      }
+
+      public function transactions(){
+        return $this->hasMany(Transaction::class);
+      }
 }

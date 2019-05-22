@@ -34,4 +34,4 @@ Route::resource('transaction','Transaction\TransactionController',['only'=>['ind
 /*
 * user
 */
-Route::resource('users','User\UserController',['except'=>['create','edit']]); //show me the index page and show page only
+Route::resource('users','User\UserController'); //show me the index page and show page only
