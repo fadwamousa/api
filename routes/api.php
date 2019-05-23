@@ -29,7 +29,7 @@ Route::resource('sellers','Seller\SellerController',['only'=>['index','show']]);
 /*
 * transaction
 */
-Route::resource('transaction','Transaction\TransactionController',['only'=>['index','show']]); //show me the index page and show page only
+Route::resource('transactions','Transaction\TransactionController',['only'=>['index','show']]); //show me the index page and show page only
 
 /*
 * user
