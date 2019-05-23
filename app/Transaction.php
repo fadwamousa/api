@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Transaction extends Model
 {
     //mass assignment
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
                   'quantity',

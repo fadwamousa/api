@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->integer('seller_id')->index()->unsigned();
 
             $table->timestamps();
+            $table->softDeletes(); // deleted_at
 
             $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
         });
