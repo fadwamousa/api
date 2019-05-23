@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\User;
-class UserController extends Controller
+class UserController extends ApiController
 {
 
     public function index()
@@ -13,7 +13,8 @@ class UserController extends Controller
         //
 
         $users = User::all();
-        return response()->json(['data'=>$users],200);
+        return $this->showAll($users);
+        //return response()->json(['data'=>$users],200);
     }
 
 
@@ -38,30 +39,28 @@ class UserController extends Controller
 
         $user = User::create($input);
 
-        return response()->json(['data'=>$user],201);
-
-
+          return $this->showOne($users,201);
 
     }
 
 
-    public function show($id)
+    public function show(User $user)
     {
         //
-        $user  = User::findOrFail($id);
-        return response()->json(['data'=>$user],200);
+
+          return $this->showOne($user);
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
 
-        $user  = User::findOrFail($id);
+        //$user  = User::findOrFail($id);
 
         $rules = [
           //to void the message the email is already exists
-          'email'       => 'email|unique:users,email'.$user->$id,
+          'email'       => 'email|unique:users,email'.$user->id,
           'password'    => 'min:6|confirmed',
           'admin'       => 'in:'.User::ADMIN_USER .','.User::REGULAR_USER
           //the admin must be in two values only (0,1)
@@ -87,7 +86,7 @@ class UserController extends Controller
           if(!$user->isVerified()){
 
             //409 has been confilected
-            return response()->json(['error'=>'only users admin can modify the admin field']);
+            return $this->errorResponse('Only Verfied Users can modify the admin section',409);
 
           }
 
@@ -96,25 +95,25 @@ class UserController extends Controller
 
        //if user change isDirty() return true
        //isClean() mean no change
-       //isDirty() mean change  
+       //isDirty() mean change
        if(!$user->isDirty()){
 
-         return response()->json(['error'=>'the data must be changed in update section']);
+         return $this->errorResponse('The Data must be changed in update section',422);
 
        }
 
        $user->save();
 
-       return response()->json(['data'=>$user],200);
+         return $this->showOne($user);
     }
 
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
-        $user  = User::findOrFail($id);
+        //$user  = User::findOrFail($id);
         $user->delete();
-        return response()->json(['data'=>$user]);
+        return $this->showOne($user);
 
     }
 }

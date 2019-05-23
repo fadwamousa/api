@@ -26,6 +26,19 @@ class User extends Authenticatable
         'password', 'remember_token','verification_token'
     ];
 
+    //Mautotrs
+    public function setNameAttribute($name){
+      return $this->attributes['name'] = strtolower($name);
+    }
+
+    public function setEmailAttribute($email){
+      return $this->attributes['email'] = strtolower($email);
+    }
+
+    public function getNameAttribute($name){
+      return ucwords($name);
+    }
+
 
 
     public function isVerified(){
