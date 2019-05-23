@@ -26,7 +26,7 @@ class Product extends Model
 
       ]; //mass assignment
 
-
+      protected $hidden = ['pivot'];
 
       public function isAvailable(){
 
