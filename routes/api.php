@@ -55,3 +55,5 @@ Route::resource('transactions.sellers','Transaction\TransactionSellerController'
 * user
 */
 Route::resource('users','User\UserController'); //show me the index page and show page only
+Route::get('users/verify/{token}','User\UserController@verify')->name('verify');
+Route::get('users/{user}/resend','User\UserController@resend')->name('resend');
