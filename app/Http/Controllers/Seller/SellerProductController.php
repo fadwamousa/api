@@ -81,11 +81,17 @@ class SellerProductController extends ApiController
     {
         $this->checkSeller($seller , $product);
 
+
+
         $product->delete();
 
         Storage::delete($product->image);
-        //we can put this is command before but we want to remove image definitly
-        //will remove the image from the folder
+
+        //Storage take name of file that
+        // you want to remove and relative what is the folder that image in
+        //we put this after product->delete to be sure the imge deletes completely
+
+
 
         return $this->showOne($product);
     }
